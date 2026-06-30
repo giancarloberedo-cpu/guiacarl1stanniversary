@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anniversary Invitation</title>
+  <style>
+    :root {
+      --artifact-background: var(--theme-background, #ffffff);
+      --artifact-background-light: var(--theme-background-light, #f6f6f6);
+      --artifact-background-mid: var(--theme-background-mid, #f0f0f0);
+      --artifact-border-light: var(--theme-border-light, #e5e5e5);
+      --artifact-border-dark: var(--theme-border-dark, #cccccc);
+      --artifact-primary-brand: var(--theme-primary-brand, #343ced);
+      --artifact-primary-highlight: var(--theme-primary-highlight, #1b1b1b);
+      --artifact-primary-hover: var(--theme-primary-hover, #404040);
+      --artifact-selected: var(--theme-selected, #e8e8e8);
+      --artifact-text-primary: var(--theme-text-primary, #1b1b1b);
+      --artifact-text-secondary: var(--theme-text-secondary, #727272);
+      --artifact-text-highlight: var(--theme-text-highlight, #fff8e5);
+
+      --artifact-hero-start: #f6f3eb;
+      --artifact-hero-end: #ffcfbd;
+      --artifact-accent-soft: #f1b7ff;
+      --artifact-accent-gold: #cda515;
+      --artifact-accent-rose: #dd2ca5;
+      --artifact-accent-indigo: #343ced;
+      --artifact-card-background: rgba(255,255,255,0.74);
+      --artifact-overlay: rgba(255,255,255,0.40);
+      --artifact-shadow: rgba(27,27,27,0.10);
+      --artifact-shadow-strong: rgba(27,27,27,0.16);
+      --artifact-chip-background: rgba(255,255,255,0.65);
+      --artifact-input-background: rgba(255,255,255,0.80);
+      --artifact-heart: #ef601b;
+      --artifact-photo-1: #ffcfbd;
+      --artifact-photo-2: #f1b7ff;
+      --artifact-photo-3: #a9e0ff;
+      --artifact-photo-4: #daf181;
+      --artifact-countdown-background: rgba(255,255,255,0.78);
+      --artifact-button-text: #ffffff;
+      --artifact-card-text: #1b1b1b;
+    }
+
+    html[data-theme='dark'] {
+      --artifact-hero-start: #261d22;
+      --artifact-hero-end: #412833;
+      --artifact-accent-soft: #5b2f61;
+      --artifact-accent-gold: #d7b84c;
+      --artifact-accent-rose: #f26bc8;
+      --artifact-accent-indigo: #7d84ff;
+      --artifact-card-background: rgba(30,30,34,0.78);
+      --artifact-overlay: rgba(22,22,26,0.45);
+      --artifact-shadow: rgba(0,0,0,0.30);
+      --artifact-shadow-strong: rgba(0,0,0,0.42);
+      --artifact-chip-background: rgba(42,42,48,0.82);
+      --artifact-input-background: rgba(35,35,40,0.90);
+      --artifact-heart: #ff9b73;
+      --artifact-photo-1: #70443b;
+      --artifact-photo-2: #61385f;
+      --artifact-photo-3: #30556f;
+      --artifact-photo-4: #495c2e;
+      --artifact-countdown-background: rgba(30,30,34,0.78);
+      --artifact-button-text: #ffffff;
+      --artifact-card-text: #f7f7f8;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--artifact-background);
+      color: var(--artifact-text-primary);
+      line-height: 1.5;
+    }
+
+    .page-shell {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, var(--artifact-overlay), transparent 36%),
+        linear-gradient(135deg, var(--artifact-hero-start), var(--artifact-hero-end));
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 72px 0 44px;
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: 40px;
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 32px;
+      background: var(--artifact-card-background);
+      color: var(--artifact-card-text);
+      box-shadow: 0 20px 50px var(--artifact-shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .hero-card::before,
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+
+    .hero-card::before {
+      width: 280px;
+      height: 280px;
+      top: -80px;
+      right: -70px;
+      background: radial-gradient(circle, var(--artifact-accent-soft), transparent 65%);
+      opacity: 0.38;
+    }
+
+    .hero-card::after {
+      width: 220px;
+      height: 220px;
+      bottom: -60px;
+      left: -50px;
+      background: radial-gradient(circle, var(--artifact-photo-4), transparent 65%);
+      opacity: 0.34;
+    }
+
+    .hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 28px;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 999px;
+      background: var(--artifact-chip-background);
+      color: var(--artifact-text-secondary);
+      font-size: 14px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-title {
+      margin: 20px 0 12px;
+      font-family: "DM Sans", Inter, system-ui, sans-serif;
+      font-size: clamp(40px, 7vw, 76px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-title .accent {
+      color: var(--artifact-accent-rose);
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 0 0 24px;
+      color: var(--artifact-text-secondary);
+      font-size: 18px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .meta-pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--artifact-chip-background);
+      border: 1px solid var(--artifact-border-light);
+      color: var(--artifact-text-primary);
+      font-size: 14px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .button,
+    .ghost-button,
+    .music-toggle {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      cursor: pointer;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease, border-color 0.22s ease;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 22px;
+      background: var(--artifact-primary-highlight);
+      color: var(--artifact-button-text);
+      text-decoration: none;
+      box-shadow: 0 12px 24px var(--artifact-shadow);
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: var(--artifact-primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 16px 28px var(--artifact-shadow-strong);
+      outline: none;
+    }
+
+    .ghost-button,
+    .music-toggle {
+      padding: 14px 18px;
+      background: var(--artifact-chip-background);
+      color: var(--artifact-text-primary);
+      border: 1px solid var(--artifact-border-light);
+      box-shadow: 0 8px 18px var(--artifact-shadow);
+    }
+
+    .ghost-button:hover,
+    .ghost-button:focus-visible,
+    .music-toggle:hover,
+    .music-toggle:focus-visible {
+      background: var(--artifact-selected);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .music-note {
+      font-size: 14px;
+      color: var(--artifact-text-secondary);
+      margin: 0;
+    }
+
+    .music-embed-wrap {
+      margin-top: 14px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--artifact-border-light);
+      background: var(--artifact-chip-background);
+      box-shadow: 0 12px 24px var(--artifact-shadow);
+      max-width: 420px;
+      display: none;
+    }
+
+    .music-embed-wrap.active {
+      display: block;
+    }
+
+    .music-embed {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      display: block;
+      background: var(--artifact-background-mid);
+    }
+
+    .countdown-card {
+      border-radius: 28px;
+      padding: 24px;
+      border: 1px solid var(--artifact-border-light);
+      background: var(--artifact-countdown-background);
+      box-shadow: 0 16px 30px var(--artifact-shadow);
+    }
+
+    .countdown-label {
+      margin: 0 0 12px;
+      color: var(--artifact-text-secondary);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .count-box {
+      padding: 16px 10px;
+      border-radius: 20px;
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
+      text-align: center;
+    }
+
+    .count-value {
+      display: block;
+      font-family: "DM Sans", Inter, system-ui, sans-serif;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .count-text {
+      display: block;
+      margin-top: 6px;
+      color: var(--artifact-text-secondary);
+      font-size: 13px;
+    }
+
+    .highlight-message {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: var(--artifact-chip-background);
+      border: 1px solid var(--artifact-border-light);
+      color: var(--artifact-text-primary);
+    }
+
+    .section {
+      padding: 18px 0 26px;
+    }
+
+    .section-title {
+      margin: 0 0 10px;
+      font-family: "DM Sans", Inter, system-ui, sans-serif;
+      font-size: clamp(28px, 5vw, 44px);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .section-copy {
+      margin: 0 0 24px;
+      max-width: 720px;
+      color: var(--artifact-text-secondary);
+      font-size: 17px;
+    }
+
+    .story-layout {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 0.92fr 1.08fr;
+      align-items: stretch;
+    }
+
+    .story-card,
+    .details-card,
+    .rsvp-card,
+    .quick-edit {
+      background: var(--artifact-card-background);
+      border: 1px solid var(--artifact-border-light);
+      border-radius: 28px;
+      padding: 26px;
+      box-shadow: 0 14px 30px var(--artifact-shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .story-line {
+      position: relative;
+      display: grid;
+      gap: 18px;
+      padding-left: 20px;
+    }
+
+    .story-line::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      bottom: 8px;
+      left: 4px;
+      width: 2px;
+      background: linear-gradient(var(--artifact-accent-gold), var(--artifact-accent-rose));
+    }
+
+    .story-item {
+      position: relative;
+      padding-left: 18px;
+    }
+
+    .story-item::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: -1px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--artifact-heart);
+      box-shadow: 0 0 0 6px var(--artifact-chip-background);
+    }
+
+    .story-year {
+      margin: 0 0 4px;
+      font-size: 13px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--artifact-text-secondary);
+    }
+
+    .story-heading {
+      margin: 0 0 6px;
+      font-size: 18px;
+    }
+
+    .story-text {
+      margin: 0;
+      color: var(--artifact-text-secondary);
+    }
+
+    .gallery-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+
+    .photo-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 180px;
+      border-radius: 24px;
+      border: 1px solid var(--artifact-border-light);
+      box-shadow: 0 14px 28px var(--artifact-shadow);
+      padding: 18px;
+      display: flex;
+      align-items: end;
+      transition: transform 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .photo-card:hover,
+    .photo-card:focus-within {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 34px var(--artifact-shadow-strong);
+    }
+
+    .photo-card.large { grid-column: span 7; min-height: 280px; }
+    .photo-card.tall { grid-column: span 5; min-height: 280px; }
+    .photo-card.small { grid-column: span 4; min-height: 220px; }
+
+    .photo-one { background: linear-gradient(160deg, var(--artifact-photo-1), var(--artifact-accent-soft)); }
+    .photo-two { background: linear-gradient(160deg, var(--artifact-photo-3), var(--artifact-photo-2)); }
+    .photo-three { background: linear-gradient(160deg, var(--artifact-photo-4), var(--artifact-photo-1)); }
+    .photo-four { background: linear-gradient(160deg, var(--artifact-accent-soft), var(--artifact-photo-3)); }
+
+    .photo-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent, var(--artifact-overlay));
+      pointer-events: none;
+    }
+
+    .photo-card img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .photo-card span {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: var(--artifact-chip-background);
+      color: var(--artifact-text-primary);
+      border: 1px solid var(--artifact-border-light);
+      font-size: 14px;
+      max-width: calc(100% - 4px);
+    }
+
+    .details-grid {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .details-card h3,
+    .rsvp-card h3,
+    .quick-edit h3,
+    .story-card h3 {
+      margin: 0 0 10px;
+      font-family: "DM Sans", Inter, system-ui, sans-serif;
+      font-size: 24px;
+      letter-spacing: -0.03em;
+    }
+
+    .details-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .detail-row {
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
+    }
+
+    .detail-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--artifact-text-secondary);
+    }
+
+    .detail-value {
+      font-size: 16px;
+    }
+
+    .rsvp-layout {
+      display: grid;
+      gap: 18px;
+      grid-template-columns: 0.9fr 1.1fr;
+      align-items: start;
+      padding-bottom: 72px;
+    }
+
+    .rsvp-form {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .rsvp-form input,
+    .rsvp-form textarea,
+    .rsvp-form select {
+      width: 100%;
+      padding: 14px 15px;
+      border-radius: 16px;
+      border: 1px solid var(--artifact-border-light);
+      background: var(--artifact-input-background);
+      color: var(--artifact-text-primary);
+      font: inherit;
+      resize: vertical;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .rsvp-form input:focus,
+    .rsvp-form textarea:focus,
+    .rsvp-form select:focus {
+      outline: none;
+      border-color: var(--artifact-accent-indigo);
+      box-shadow: 0 0 0 3px var(--artifact-overlay);
+      transform: translateY(-1px);
+    }
+
+    .form-note,
+    .quick-edit p,
+    .details-note {
+      color: var(--artifact-text-secondary);
+      margin: 0;
+    }
+
+    .quick-edit code {
+      font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, monospace;
+      font-size: 13px;
+      background: var(--artifact-chip-background);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--artifact-border-light);
+      color: var(--artifact-text-primary);
+    }
+
+    .edit-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .edit-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: var(--artifact-background);
+      border: 1px solid var(--artifact-border-light);
+      font-size: 14px;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--artifact-text-secondary);
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.08s; }
+    .delay-2 { animation-delay: 0.18s; }
+    .delay-3 { animation-delay: 0.28s; }
+    .delay-4 { animation-delay: 0.38s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media screen and (max-width: 920px) {
+      .hero-grid,
+      .story-layout,
+      .rsvp-layout,
+      .details-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-card.large,
+      .photo-card.tall,
+      .photo-card.small {
+        grid-column: span 12;
+      }
+    }
+
+    @media screen and (max-width: 640px) {
+      .hero { padding-top: 24px; }
+      .hero-card,
+      .story-card,
+      .details-card,
+      .rsvp-card,
+      .quick-edit,
+      .countdown-card { padding: 20px; }
+      .countdown-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .hero-actions { align-items: stretch; }
+      .button,
+      .ghost-button,
+      .music-toggle { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+      .fade-up {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    @media print {
+      body {
+        margin: 0;
+        padding: 0.4in 0.6in;
+        background: #fff;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .container, .dashboard, .shell, main {
+        max-width: 100% !important;
+        width: 100% !important;
+      }
+
+      [style*="position:sticky"], [style*="position: sticky"],
+      [class*="topbar"], [class*="navbar"], [class*="header"][class*="sticky"] {
+        position: static !important;
+      }
+
+      section, [class*="section"], .header {
+        break-inside: avoid;
+        margin-bottom: 20px !important;
+      }
+
+      [class*="card"], [class*="Card"] {
+        break-inside: avoid;
+        padding: 18px !important;
+        box-shadow: none !important;
+        border: 1px solid rgba(0,0,0,0.08);
+      }
+
+      [class*="grid"], [class*="row"] {
+        gap: 10px !important;
+        margin-bottom: 20px !important;
+      }
+
+      [class*="chart"], [class*="Chart"] {
+        break-inside: avoid;
+        height: 240px !important;
+      }
+
+      [class*="chart"][class*="tall"], [class*="Chart"][class*="tall"],
+      [class*="chart"][class*="full"], [class*="Chart"][class*="full"] {
+        height: 280px !important;
+      }
+
+      table, thead, .funnel, .heatmap, .list, .goals {
+        break-inside: avoid;
+      }
+
+      [class*="quote-list"], [class*="scroll"],
+      [style*="max-height"], [style*="overflow"] {
+        max-height: none !important;
+        overflow: visible !important;
+      }
+
+      [class*="tab-panel"], [class*="tabpanel"] {
+        display: block !important;
+      }
+
+      [class*="tab-bar"], [class*="tabs"]:not([class*="panel"]) {
+        display: none !important;
+      }
+
+      [class*="fade"], [class*="animate"], [class*="slide"] {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      button, [role="button"], .interactive-only {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-card fade-up">
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">❤ Anniversary Celebration</div>
+              <h1 class="hero-title">Guia & Carl <span class="accent">Forever</span></h1>
+              <p class="hero-copy">With grateful hearts and joyful smiles, we invite you to celebrate another beautiful year of love, memories, and togetherness with us.</p>
+              <div class="hero-meta">
+                <div class="meta-pill">July 5, 2026</div>
+                <div class="meta-pill">Time to be announced</div>
+                <div class="meta-pill">SM Mall of Asia</div>
+              </div>
+              <div class="hero-actions">
+                <a class="button" href="#rsvp">RSVP now</a>
+                <a class="ghost-button" href="#details">View details</a>
+                <button class="music-toggle" id="musicToggle" type="button" aria-pressed="false">Play music</button>
+              </div>
+              <p class="music-note" id="musicStatus">Music is set to try auto-play if the browser allows it.</p>
+              <div class="music-embed-wrap active interactive-only" id="musicFrameWrap" aria-label="Embedded music player"></div>
+            </div>
+            <aside class="countdown-card fade-up delay-1" aria-label="Countdown to event">
+              <p class="countdown-label">Counting down to your day</p>
+              <div class="countdown-grid">
+                <div class="count-box"><span class="count-value" id="days">00</span><span class="count-text">Days</span></div>
+                <div class="count-box"><span class="count-value" id="hours">00</span><span class="count-text">Hours</span></div>
+                <div class="count-box"><span class="count-value" id="minutes">00</span><span class="count-text">Minutes</span></div>
+                <div class="count-box"><span class="count-value" id="seconds">00</span><span class="count-text">Seconds</span></div>
+              </div>
+              <p class="highlight-message">Please replace the sample event date in the page script with your real anniversary date so the countdown matches your invitation.</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container story-layout">
+        <div class="story-card fade-up delay-1">
+          <h3>Our Story</h3>
+          <p class="section-copy">Keep this short and personal so guests instantly feel the warmth of your celebration.</p>
+          <div class="story-line">
+            <article class="story-item">
+              <p class="story-year">First chapter</p>
+              <h4 class="story-heading">How It Started</h4>
+              <p class="story-text">It started when you were performing at an ARCH GA, and I came back to run as EB. That moment became the beginning of something neither of us would ever forget.</p>
+            </article>
+            <article class="story-item">
+              <p class="story-year">Favorite memory</p>
+              <h4 class="story-heading">A Moment We Still Talk About</h4>
+              <p class="story-text">One moment we still talk about is the museum date we had in Antipolo. It was simple, special, and one of those memories that stayed close to our hearts.</p>
+            </article>
+            <article class="story-item">
+              <p class="story-year">This celebration</p>
+              <h4 class="story-heading">Why This Anniversary Matters</h4>
+              <p class="story-text">This anniversary matters so much to us because it is our first. It marks the start of many more beautiful years we hope to celebrate together.</p>
+            </article>
+          </div>
+        </div>
+
+        <div class="fade-up delay-2">
+          <h2 class="section-title">A Few of Our Favorite Memories</h2>
+          <p class="section-copy">A small collection of moments that make our first anniversary even more special.</p>
+          <div class="gallery-grid">
+            <div class="photo-card large photo-one"><img src="https://general-motors-be.glean.com/api/v1/downloadchatfile/b2b1e3df453d46a8a9cb5e2e8e954fb9" alt="Guia and Carl smiling together outdoors in the city" /><span>First Monthsary</span></div>
+            <div class="photo-card tall photo-two"><img src="https://general-motors-be.glean.com/api/v1/downloadchatfile/e9bdf34ce64545f3941e8f8c89dbf2a0" alt="Guia and Carl taking a selfie during a city outing" /><span>Little Adventures With You</span></div>
+            <div class="photo-card small photo-three"><img src="https://general-motors-be.glean.com/api/v1/downloadchatfile/433df69cb2da47bdbda1f390a2182099" alt="Guia and Carl dressed up and posing together" /><span>All Dressed Up</span></div>
+            <div class="photo-card small photo-four"><img src="https://general-motors-be.glean.com/api/v1/downloadchatfile/850e79a24367479ea970eb3e427698aa" alt="Guia and Carl sharing a dinner date together" /><span>Simple Dinner Dates</span></div>
+            <div class="photo-card small photo-one"><img src="https://general-motors-be.glean.com/api/v1/downloadchatfile/92b9c23137624e338f6c05eae74e0f86" alt="Guia and Carl celebrating together with flowers at dinner" /><span>The Day We Became a Couple</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="details">
+      <div class="container fade-up delay-2">
+        <h2 class="section-title">Event details</h2>
+        <p class="section-copy">Everything guests need in one quick view.</p>
+        <div class="details-grid">
+          <div class="details-card">
+            <h3>When and where</h3>
+            <div class="details-list">
+              <div class="detail-row"><span class="detail-label">Date</span><span class="detail-value">July 5, 2026</span></div>
+              <div class="detail-row"><span class="detail-label">Time</span><span class="detail-value">Time to be announced</span></div>
+              <div class="detail-row"><span class="detail-label">Venue</span><span class="detail-value">SM Mall of Asia</span></div>
+            </div>
+          </div>
+          <div class="details-card">
+            <h3>Dress code</h3>
+            <div class="details-list">
+              <div class="detail-row"><span class="detail-label">Style</span><span class="detail-value">[Elegant evening, semi-formal, garden chic, etc.]</span></div>
+              <div class="detail-row"><span class="detail-label">Palette</span><span class="detail-value">All Black</span></div>
+              <div class="detail-row"><span class="detail-label">Note</span><span class="detail-value">Please wear something comfortable for photos and dancing.</span></div>
+            </div>
+          </div>
+          <div class="details-card">
+            <h3>Helpful notes</h3>
+            <div class="details-list">
+              <div class="detail-row"><span class="detail-label">Parking</span><span class="detail-value">[Parking instructions or landmark]</span></div>
+              <div class="detail-row"><span class="detail-label">RSVP by</span><span class="detail-value">[RSVP deadline]</span></div>
+              <div class="detail-row"><span class="detail-label">Contact</span><span class="detail-value">[Name and mobile number]</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="rsvp">
+      <div class="container rsvp-layout">
+        <div class="rsvp-card fade-up delay-3">
+          <h3>RSVP</h3>
+          <p class="section-copy">This form is a visual placeholder. Connect the RSVP button to your Google Form, Facebook event, or messaging link when you’re ready.</p>
+          <form class="rsvp-form" onsubmit="event.preventDefault(); showRSVPMessage();">
+            <input type="text" placeholder="Guest name" aria-label="Guest name" />
+            <select aria-label="Attendance response">
+              <option>Will attend</option>
+              <option>Maybe</option>
+              <option>Unable to attend</option>
+            </select>
+            <textarea rows="4" placeholder="Leave a short message"></textarea>
+            <button class="button" type="submit">Send RSVP</button>
+          </form>
+          <p class="footer-note" id="rsvpMessage">Tip: replace this demo form with your real RSVP link later.</p>
+        </div>
+
+        <div class="quick-edit fade-up delay-4">
+          <h3>Quick edit guide</h3>
+          <p>To personalize this page fast, replace the placeholder text below and update the script values near <code>EVENT_DATE</code> and <code>MUSIC_URL</code>.</p>
+          <div class="edit-list">
+            <div class="edit-item"><strong>Names:</strong> change <code>[Your Names]</code> in the hero title.</div>
+            <div class="edit-item"><strong>Date and time:</strong> update the hero pills, details cards, and the countdown script.</div>
+            <div class="edit-item"><strong>Venue:</strong> replace the venue placeholders with your exact location.</div>
+            <div class="edit-item"><strong>Photos:</strong> swap the gallery blocks with your own image tags or background images.</div>
+            <div class="edit-item"><strong>Music:</strong> paste your direct audio file URL into <code>MUSIC_URL</code>.</div>
+            <div class="edit-item"><strong>Real RSVP:</strong> change the RSVP button or form submit behavior to your preferred link.</div>
+          </div>
+          <p class="footer-note">If browser auto-play is blocked, guests can still start the music with the button.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const EVENT_DATE = '2026-07-05T18:00:00';
+    const MUSIC_TITLE = 'Padaba Taka';
+    const MUSIC_ARTIST = 'dwta';
+    const YOUTUBE_VIDEO_ID = 'inK6kn8y0qI';
+
+    const countdownEls = {
+      days: document.getElementById('days'),
+      hours: document.getElementById('hours'),
+      minutes: document.getElementById('minutes'),
+      seconds: document.getElementById('seconds')
+    };
+
+    const musicToggle = document.getElementById('musicToggle');
+    const musicStatus = document.getElementById('musicStatus');
+    const musicFrameWrap = document.getElementById('musicFrameWrap');
+    let musicPlaying = false;
+
+    function pad(value) {
+      return String(value).padStart(2, '0');
+    }
+
+    function updateCountdown() {
+      const target = new Date(EVENT_DATE).getTime();
+      const now = Date.now();
+      const diff = target - now;
+
+      if (Number.isNaN(target)) {
+        Object.values(countdownEls).forEach(el => el.textContent = '--');
+        return;
+      }
+
+      if (diff <= 0) {
+        countdownEls.days.textContent = '00';
+        countdownEls.hours.textContent = '00';
+        countdownEls.minutes.textContent = '00';
+        countdownEls.seconds.textContent = '00';
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdownEls.days.textContent = pad(days);
+      countdownEls.hours.textContent = pad(hours);
+      countdownEls.minutes.textContent = pad(minutes);
+      countdownEls.seconds.textContent = pad(seconds);
+    }
+
+    function youtubeEmbedUrl(autoplay) {
+      const autoplayValue = autoplay ? '1' : '0';
+      return `https://www.youtube.com/embed/${YOUTUBE_VIDEO_ID}?autoplay=${autoplayValue}&loop=1&playlist=${YOUTUBE_VIDEO_ID}&controls=1&rel=0`;
+    }
+
+    function renderMusicFrame(autoplay) {
+      musicFrameWrap.innerHTML = `<iframe class="music-embed" src="${youtubeEmbedUrl(autoplay)}" title="${MUSIC_TITLE} by ${MUSIC_ARTIST}" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`;
+      musicFrameWrap.classList.add('active');
+    }
+
+    function stopMusicFrame() {
+      musicFrameWrap.innerHTML = '';
+      musicFrameWrap.classList.remove('active');
+    }
+
+    function setMusicButtonState(isPlaying) {
+      musicPlaying = isPlaying;
+      musicToggle.setAttribute('aria-pressed', String(isPlaying));
+      musicToggle.textContent = isPlaying ? 'Pause music' : 'Play music';
+      musicStatus.textContent = isPlaying
+        ? `${MUSIC_TITLE} by ${MUSIC_ARTIST} is playing from YouTube.`
+        : `${MUSIC_TITLE} is paused. Guests can press Play music any time.`;
+    }
+
+    function tryAutoplayMusic() {
+      renderMusicFrame(true);
+      setMusicButtonState(true);
+      setTimeout(() => {
+        if (!document.hasFocus()) return;
+        musicStatus.textContent = `${MUSIC_TITLE} is embedded directly on the page. If auto-play is blocked, guests can press Play music.`;
+      }, 1200);
+    }
+
+    musicToggle.addEventListener('click', () => {
+      if (musicPlaying) {
+        stopMusicFrame();
+        setMusicButtonState(false);
+      } else {
+        renderMusicFrame(true);
+        setMusicButtonState(true);
+      }
+    });
+
+    function showRSVPMessage() {
+      const msg = document.getElementById('rsvpMessage');
+      msg.textContent = 'Demo only: connect this form or button to your real RSVP link before sharing the page.';
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    tryAutoplayMusic();
+  </script>
+
+  <script>
+    window.GleanBridge.postMessage({
+      actionId: 'export-pdf',
+      type: 'glean-add-menu',
+      metadata: { label: 'Export as PDF', icon: 'export' }
+    });
+    window.GleanBridge.onMessage('action', function(data) {
+      if (data.actionId === 'export-pdf') window.print();
+    });
+
+    function prepareChartsForPrint() {
+      document.querySelectorAll('[_echarts_instance_]').forEach(function(el) {
+        var chart = echarts.getInstanceByDom(el);
+        if (!chart) return;
+        var img = new Image();
+        img.src = chart.getDataURL({ type: 'png', pixelRatio: 2 });
+        img.className = 'print-chart-img';
+        img.style.cssText =
+          'width:100%;height:100%;object-fit:contain;' +
+          'position:absolute;top:0;left:0;z-index:10;';
+        el.dataset.prevPosition = el.style.position;
+        el.style.position = 'relative';
+        el.appendChild(img);
+      });
+    }
+
+    function cleanUpAfterPrint() {
+      document.querySelectorAll('[_echarts_instance_]').forEach(function(el) {
+        var img = el.querySelector('.print-chart-img');
+        if (!img) return;
+        img.remove();
+        el.style.position = el.dataset.prevPosition || '';
+        delete el.dataset.prevPosition;
+      });
+    }
+
+    window.addEventListener('beforeprint', prepareChartsForPrint);
+    window.addEventListener('afterprint', cleanUpAfterPrint);
+  </script>
+</body>
+</html>
